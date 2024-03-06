@@ -7,6 +7,7 @@ import Upload from './pages/Upload'
 import NavBar from './components/commons/NavBar'
 import CatalogInfo from './pages/CatalogInfo'
 import Footer from './components/commons/Footer'
+import About from './pages/About'
 
 const App = () => {
   return (
@@ -19,8 +20,9 @@ const App = () => {
             <Route path='/catalogs' element={<Catalogs />} />
             <Route path='/catalogs/:catalogId' element={<CatalogInfo />} />
             <Route path='/upload' element={<Upload />} />
+            <Route path='/about' element={<About />} />
           </Routes>
-          <Footer/>
+          {/* <Footer/> */}
         </div>
       </UserContextProvider>
     </Router>

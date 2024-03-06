@@ -62,21 +62,24 @@ const Upload = () => {
     })
   }
   return (
-    <div className='bg-neutral-600 min-h-screen text-white flex justify-center items-center'>
-      <div className='flex flex-col gap-4'>
-        <input type="text" className='text-black' placeholder='Name' onChange={(e) => setName(e.target.value)} />
-        <span>upload pdf</span>
+    <div className='bg-neutral-600 min-h-screen text-black flex justify-center items-center gap-10'>
+      <div className='flex flex-col gap-4 bg-white p-10 rounded-md shadow-md'>
+        <input type="text" className='p-1.5 bg-neutral-100' placeholder='Name' onChange={(e) => setName(e.target.value)} />
+        <span>upload catalog</span>
         <input type="file" onChange={(e) => setPdf(e.target.files[0])}/>
-        {pdf && (<button className='bg-blue-500' onClick={(e) => handleInputPdf(e)}>upload Pdf</button>)}
+        {pdf && (<button className='px-4 p-2 rounded-md bg-blue-600 text-white' onClick={(e) => handleInputPdf(e)}>upload Pdf</button>)}
+        {pdflink && (<span className='text-green-400 text-sm'>pdf uploaded</span>)}
+
         <span>upload cover image</span>
-        {pdflink && (<span>pdf displayed here{pdflink}</span>)}
         <input type="file" onChange={(e) => setCoverImg(e.target.files[0])}/>
-        {coverImg && (<button className='bg-blue-500' onClick={(e) => handleInputImage(e)}>upload coverimage</button>)}
-        {coverImgUrl && (<img src={coverImgUrl} />)}
-         
-        <button onClick={(e) => handleSubmit(e)}>submit</button>
+        {coverImg && (<button className='px-4 p-2 rounded-md bg-blue-600 text-white' onClick={(e) => handleInputImage(e)}>upload coverimage</button>)}         
+        <button className='px-4 p-2 rounded-md bg-blue-600 text-white' onClick={(e) => handleSubmit(e)}>submit</button>
         {errorMessage && (<div className="text-[#e74c3c] text-xs">{errorMessage}</div>)}
       </div>
+      {coverImgUrl && (<div className='bg-white p-10 rounded-md shadow-md'>
+        uploaded image
+        {coverImgUrl && (<img width={400} src={coverImgUrl} />)}
+      </div>)}
     </div>
   )
 }

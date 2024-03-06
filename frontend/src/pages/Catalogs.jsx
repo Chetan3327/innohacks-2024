@@ -7,8 +7,8 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 const Catalog = ({_id, name, pdflink, coverImgUrl}) => {
   const navigate = useNavigate()
   return (
-  <div onClick={() => navigate(`/catalogs/${_id}`)} className='relative flex hover:cursor-pointer'>
-    <img width={400} className='rounded-md' src={coverImgUrl} alt="" />
+  <div onClick={() => navigate(`/catalogs/${_id}`)} className='relative flex hover:cursor-pointer rounded-lg'>
+    <img width={300} className='hover:scale-105 hover:transition hover:duration-150 rounded-lg' src={coverImgUrl} alt="" />
     <span className='absolute bottom-2 left-2 font-bold text-black'>{name}</span>
   </div>)
 }
@@ -21,8 +21,8 @@ const Catalogs = () => {
     })
   }, [])
   return (
-    <div className='p-20 flex gap-5 flex-wrap'>
-      {catalogs && (<div>
+    <div className='p-20'>
+      {catalogs && (<div className='flex gap-5 flex-wrap'>
         {catalogs.map((catalog, idx) => {
           return(<Catalog {...catalog} />)
         })}
