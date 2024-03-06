@@ -13,9 +13,6 @@ const Home = () => {
 
   return (
     <div className='flex justify-around items-center min-h-screen'>
-      {/* <div>
-        <h2 className='font-semibold text-3xl'>Welcome.</h2>
-      </div> */}
       <div className='bg-primary p-10 w-[90vw] lg:w-[30vw] rounded-lg'>
         <Tabs defaultValue="login" className="w-full">
           <TabsList>

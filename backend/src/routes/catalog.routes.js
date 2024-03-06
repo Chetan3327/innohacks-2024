@@ -1,11 +1,13 @@
-import express from 'express'
-import {sendMessage, fetchMessages} from '../controllers/catalog.controllers.js'
+import express from 'express';
+import { createCatalog, getAllCatalogs, getCatalogById, editCatalog, deleteCatalog } from '../controllers/catalog.controllers.js';
+import verifyToken from '../middlewares/verifyToken.js';
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/', createCatalog)
-router.get('/', fetchCatalogs)
-router.get('/:chatId', fetchCatalog)
+router.post('/create', verifyToken, createCatalog);
+router.get('/all', getAllCatalogs);
+router.get('/:catalogId', verifyToken, getCatalogById);
+router.put('/:catalogId/edit', verifyToken, editCatalog);
+router.delete('/:catalogId/delete', verifyToken, deleteCatalog);
 
-
-export default router
+export default router;
