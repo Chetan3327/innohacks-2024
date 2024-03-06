@@ -2,12 +2,15 @@ import CatalogModel from '../models/catalog.model.js';
 
 const createCatalog = async (req, res) => {
     try {
-        const { name, pdflink, coverImgUrl } = req.body;
+        const { name, pdflink, coverImgUrl, has_foul_language, has_images, has_price } = req.body;
         const newCatalog = new CatalogModel({
             name,
             pdflink,
             coverImgUrl,
             creator: req.user._id,
+            has_foul_language,
+            has_images,
+            has_price
         });
 
         await newCatalog.save();

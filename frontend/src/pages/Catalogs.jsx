@@ -24,7 +24,7 @@ const Catalogs = () => {
     <div className='p-20'>
       {catalogs && (<div className='flex gap-5 flex-wrap'>
         {catalogs.map((catalog, idx) => {
-          return(<Catalog {...catalog} />)
+          return(<Catalog key={idx} {...catalog} />)
         })}
       </div>)}
     </div>

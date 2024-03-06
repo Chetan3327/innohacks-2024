@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET
 const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+const PYTHON_URL = import.meta.env.VITE_PYTHON_URL
 
 const Upload = () => {
   const [name, setName] = useState("")
@@ -57,7 +58,16 @@ const Upload = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post(`${BACKEND_URL}/api/catalog/create`, { name, pdflink, coverImgUrl }, {headers: {'Authorization' :`Bearer ${token}`}}).then((response) => {
+    console.log(pdf)
+    let has_foul_language = false
+    let has_images = false
+    let has_price = false
+    axios.post(`${PYTHON_URL}/extract-text`, {upload_file: pdf}, {headers: {"Content-Type": "multipart/form-data"}}).then((res) => {
+      has_foul_language = res.data.has_foul_language
+      has_images = res.data.has_images
+      has_price = res.data.has_price
+    })
+    axios.post(`${BACKEND_URL}/api/catalog/create`, { name, pdflink, coverImgUrl, has_foul_language, has_images, has_images }, {headers: {'Authorization' :`Bearer ${token}`}}).then((response) => {
       navigate('/')
     })
   }

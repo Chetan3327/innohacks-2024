@@ -25,7 +25,7 @@ const CatalogInfo = () => {
     return (
         <div className='bg-neutral-600 min-h-screen text-white flex justify-center items-center'>
             {catalog && (<div>
-                <img src={catalog.coverImgUrl} alt="coverImg" />
+                <img width={300} src={catalog.coverImgUrl} alt="coverImg" />
                 <span>{catalog.name}</span>
             <button onClick={() => deleteCatalog(catalog._id)} className='px-4 p-2 rounded-md shadow-sm bg-red-600 text-white'>delete</button>
             </div>)}
