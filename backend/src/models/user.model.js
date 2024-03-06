@@ -4,6 +4,13 @@ const UserSchema = new mongoose.Schema({
     name: {type: String, required: true},
     email: {type: String, required: true},
     password: {type: String, required: true},
+    chatMessages: [
+        {
+            sender: { type: mongoose.Types.ObjectId, ref: "User" },
+            message: { type: String },
+            timestamp: { type: Date, default: Date.now }
+        }
+    ]
 },
 {
     timestamps: true
