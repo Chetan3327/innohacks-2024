@@ -17,6 +17,9 @@ app.get('/', (req, res) => {
 import userRoute from './routes/user.routes.js'
 app.use('/api/user', userRoute)
 
+import catalogRoute from './routes/catalog.routes.js'
+app.use('/api/catalog', catalogRoute)
+
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {
     console.log(`server started at port ${PORT}`)

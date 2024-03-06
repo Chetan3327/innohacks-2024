@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Catalogs from './pages/Catalogs'
 import UserContextProvider from './context/userContext'
+import Upload from './pages/Upload'
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/catalogs' element={<Catalogs />} />
+            <Route path='/upload' element={<Upload />} />
           </Routes>
         </div>
       </UserContextProvider>
