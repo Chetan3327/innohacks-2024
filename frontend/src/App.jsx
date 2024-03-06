@@ -6,6 +6,7 @@ import UserContextProvider from './context/userContext'
 import Upload from './pages/Upload'
 import NavBar from './components/commons/NavBar'
 import CatalogInfo from './pages/CatalogInfo'
+import Footer from './components/commons/Footer'
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Route path='/catalogs/:catalogId' element={<CatalogInfo />} />
             <Route path='/upload' element={<Upload />} />
           </Routes>
+          <Footer/>
         </div>
       </UserContextProvider>
     </Router>
