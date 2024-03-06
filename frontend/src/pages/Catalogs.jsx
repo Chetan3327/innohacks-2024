@@ -1,20 +1,32 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
-const Catalog = () => {
+
+const Catalog = ({_id, name, pdflink, coverImgUrl}) => {
+  const navigate = useNavigate()
   return (
-  <div className='relative flex hover:cursor-pointer'>
-    <img width={400} className='rounded-md' src="https://img.freepik.com/free-vector/gradient-product-catalog-template_23-2149877177.jpg?size=626&ext=jpg&ga=GA1.1.1395880969.1709251200&semt=ais" alt="" />
-    <span className='absolute bottom-2 left-2 font-bold text-black'>John</span>
+  <div onClick={() => navigate(`/catalogs/${_id}`)} className='relative flex hover:cursor-pointer'>
+    <img width={400} className='rounded-md' src={coverImgUrl} alt="" />
+    <span className='absolute bottom-2 left-2 font-bold text-black'>{name}</span>
   </div>)
 }
 
 const Catalogs = () => {
+  const [catalogs, setCatalogs] = useState(null)
+  useEffect(() => {
+    axios.get(`${BACKEND_URL}/api/catalog/all`).then((res) => {
+      setCatalogs(res.data)
+    })
+  }, [])
   return (
     <div className='p-20 flex gap-5 flex-wrap'>
-      <Catalog />
-      <Catalog />
-      <Catalog />
-      <Catalog />
+      {catalogs && (<div>
+        {catalogs.map((catalog, idx) => {
+          return(<Catalog {...catalog} />)
+        })}
+      </div>)}
     </div>
   )
 }
