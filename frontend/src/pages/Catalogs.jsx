@@ -1,9 +1,10 @@
+import ChatWindow from '@/components/ChatWindow'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { FaRobot } from "react-icons/fa";
+
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
-
-
 const Catalog = ({_id, name, pdflink, coverImgUrl}) => {
   const navigate = useNavigate()
   return (
@@ -15,6 +16,7 @@ const Catalog = ({_id, name, pdflink, coverImgUrl}) => {
 
 const Catalogs = () => {
   const [catalogs, setCatalogs] = useState(null)
+  const [showChatBot, setShowChatBot] = useState(true)
   useEffect(() => {
     axios.get(`${BACKEND_URL}/api/catalog/all`).then((res) => {
       setCatalogs(res.data)
@@ -27,6 +29,8 @@ const Catalogs = () => {
           return(<Catalog key={idx} {...catalog} />)
         })}
       </div>)}
+      {showChatBot && (<ChatWindow setShowChatWindow={setShowChatBot} />)}
+      {!showChatBot && (<div onClick={() => setShowChatBot(true)} className='z-50 absolute right-5 bottom-5 p-3 rounded-full bg-black text-white shadow-lg cursor-pointer'><FaRobot size={20} /></div>)}
     </div>
   )
 }
