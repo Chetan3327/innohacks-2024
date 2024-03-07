@@ -1,10 +1,11 @@
-import ChatWindow from '@/components/ChatWindow'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Services from './Services'
 import { FaRobot } from "react-icons/fa";
-
+import ChatWindow from '@/components/ChatWindow'
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
 const Catalog = ({_id, name, pdflink, coverImgUrl}) => {
   const navigate = useNavigate()
   return (
@@ -16,21 +17,41 @@ const Catalog = ({_id, name, pdflink, coverImgUrl}) => {
 
 const Catalogs = () => {
   const [catalogs, setCatalogs] = useState(null)
-  const [showChatBot, setShowChatBot] = useState(true)
+  const [showChatBot, setShowChatBot] = useState(false)
+
   useEffect(() => {
     axios.get(`${BACKEND_URL}/api/catalog/all`).then((res) => {
       setCatalogs(res.data)
     })
   }, [])
   return (
+    <div className='transition duration-200'>
+    <div className='flex justify-end' style={{background: "#AFAFAF"}}>
+    <div className='flex justify-center items-center mt-10 pl-4'>
+      <h1 className="text-5xl pt-8 pb-4 pl-10 font-extrabold text-white shadow-lg font-mono hover:scale-105 transition duration-300 ">Unlock the potential of your catalogues with our cutting-edge platform for hassle-free review, scoring, and ranking of retail products.</h1>
+    </div>
+    <img src=' https://img.freepik.com/free-psd/3d-female-character-holding-tablet-device_23-2148938895.jpg' className='mt-10'/>  
+    </div> 
+    <div className='mt-40'>
+      <h1 className='flex justify-center text-brown-500 font-serif from-neutral-400 text-8xl'>
+        Our Services
+      </h1>
+      <div className='mt-10'>
+        <Services/>
+      </div>
+    </div>
+    <div className='text-center mt-36 text-8xl'>
+      OUR TOP CATALOGS
+    </div>
     <div className='p-20'>
       {catalogs && (<div className='flex gap-5 flex-wrap'>
         {catalogs.map((catalog, idx) => {
-          return(<Catalog key={idx} {...catalog} />)
+          return(<Catalog {...catalog} key={idx} />)
         })}
       </div>)}
       {showChatBot && (<ChatWindow setShowChatWindow={setShowChatBot} />)}
-      {!showChatBot && (<div onClick={() => setShowChatBot(true)} className='z-50 absolute right-5 bottom-5 p-3 rounded-full bg-black text-white shadow-lg cursor-pointer'><FaRobot size={20} /></div>)}
+      {!showChatBot && (<div onClick={() => setShowChatBot(true)} className='z-50 fixed right-5 bottom-5 p-3 rounded-full bg-black text-white shadow-lg cursor-pointer'><FaRobot size={20} /></div>)}
+      </div>
     </div>
   )
 }

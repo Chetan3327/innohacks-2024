@@ -47,7 +47,7 @@ const ChatWindow = ({setShowChatWindow}) => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
   }, [chatData])
   return (
-    <div className='absolute bottom-3 right-3 bg-[#0e0e16] z-40 shadow-[#1c1b2d] shadow-2xl text-white' style={{width, height}}>
+    <div className='fixed bottom-3 right-3 bg-[#0e0e16] z-40 shadow-[#1c1b2d] shadow-2xl text-white' style={{width, height}}>
       <div className='flex flex-col justify-between h-full'>
         <div className='bg-[#1c1b2d] w-full flex items-center justify-between gap-1 px-4 drag-handle py-1.5'>
           <span className='text-gray-500'>AI</span>
