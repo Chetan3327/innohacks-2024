@@ -6,18 +6,52 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 import { PieChart } from "react-minimal-pie-chart";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { PiCoinVertical } from "react-icons/pi";
-import { FaTrash } from "react-icons/fa";
-import { CiChat1 } from "react-icons/ci";
-import Chat from "@/components/Chat";
+import { Bar } from "react-chartjs-2";
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Title,
+  Tooltip,
+} from "chart.js";
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+const option = {
+  responsive: true,
+  plugins: {
+    legend: { position: "chartArea" },
+    title: {
+      display: true,
+      text: "Modular Bar Chart",
+    },
+  },
+};
+const data = {
+  labels: ["compliance", "correctness", "completeness"],
+  datasets: [
+    {
+      label: "",
+      data: [20, 30, 40],
+      backgroundColor: "white",
+    },
+  ],
+};
 
 const CatalogInfo = () => {
   const navigate = useNavigate();
   const { catalogId } = useParams();
-  const { token, user } = useContext(UserContext);
+  const { token } = useContext(UserContext);
   const [catalog, setCatalog] = useState(null);
   const [value, setValue] = useState(0); //score
-  const [showChat, setShowChat] = useState(false)
 
   const deleteCatalog = (id) => {
     axios
@@ -39,7 +73,7 @@ const CatalogInfo = () => {
         console.log(res.data);
         setCatalog(res.data);
       });
-  }, [token, user]);
+  }, [token]);
   useEffect(() => {
     if (catalog) {
       let calculatedValue = 0;
@@ -50,11 +84,10 @@ const CatalogInfo = () => {
       if (catalog.has_images) {
         calculatedValue += 25;
       }
-      if (catalog.has_price) {
+      if (catalog.has_prices) {
         calculatedValue += 25;
       }
       // Set the value for the CircularProgressbar
-      console.log(calculatedValue)
       setValue(calculatedValue);
     }
   }, [catalog]);
@@ -75,7 +108,7 @@ const CatalogInfo = () => {
     //     {catalog && (<div>
     //         <img src={catalog.coverImgUrl} alt="coverImg" />
     //         <span>{catalog.name}</span>
-        // <button onClick={() => deleteCatalog(catalog._id)} className='px-4 p-2 rounded-md shadow-sm bg-red-600 text-white'>delete</button>
+    //     <button onClick={() => deleteCatalog(catalog._id)} className='px-4 p-2 rounded-md shadow-sm bg-red-600 text-white'>delete</button>
     //     </div>)}
 
     // </div>
@@ -118,20 +151,14 @@ const CatalogInfo = () => {
             </div>
           </div>
         )}
-        {catalog && (<div className="flex flex-wrap flex-col items-center pl-4">
+        <div className="flex flex-wrap flex-col items-center pl-4">
           <div className="w-[300px] h-[300px]">
-            <PieChart radius={30} data={getRandomData()} />
+            <Bar options={option} data={data} />
           </div>
           <div style={{ width: 200, height: 200 }}>
             <CircularProgressbar value={value} text={`${value}%`} />
           </div>
-          
-          {catalog.creator._id === user._id ? (<button onClick={() => deleteCatalog(catalog._id)} className='absolute right-3 px-4 p-2 rounded-md shadow-sm bg-red-600 text-white'><FaTrash /></button>) : (<></>)}
-          <button className='flex absolute top-60 items-center  gap-4 right-3 px-4 p-2 rounded-md shadow-sm bg-yellow-600 text-white'>10<PiCoinVertical /></button>
-        </div>)}
-
-        {showChat && catalog && (<Chat name={catalog.creator.name} setShowChatWindow={setShowChat} />)}
-        {!showChat && (<div onClick={() => setShowChat(true)} className='z-50 fixed right-5 bottom-5 p-3 rounded-full bg-black text-white shadow-lg cursor-pointer'><CiChat1 size={20} /></div>)}
+        </div>
       </div>
     </>
   );

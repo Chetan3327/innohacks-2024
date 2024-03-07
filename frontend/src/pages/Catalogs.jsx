@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Services from './Services'
 import { FaRobot } from "react-icons/fa";
 import ChatWindow from '@/components/ChatWindow'
+import sampleCatalog from './sample catalog.png'
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 const Catalog = ({_id, name, pdflink, coverImgUrl}) => {
@@ -59,6 +60,14 @@ const Catalogs = () => {
       {showChatBot && (<ChatWindow setShowChatWindow={setShowChatBot} />)}
       {!showChatBot && (<div onClick={() => setShowChatBot(true)} className='z-50 fixed right-5 bottom-5 p-3 rounded-full bg-black text-white shadow-lg cursor-pointer'><FaRobot size={20} /></div>)}
       </div>
+
+      <a target='_blank' href="https://drive.google.com/file/d/1OSW725v1cuFTeyylXfeLEFHMQwKaT4al/view">
+        <div className='text-center mt-36 text-3xl hover:underline hover:text-blue-500 hover:cursor-pointer'>
+          what all norms a catalog should follow
+          <p className=''>sample catalog below 👇  </p>
+          <div className='flex justify-center pb-32 mt-4'><img width={450} src={sampleCatalog} alt="sampleCatalog" /></div>
+        </div>
+      </a>
     </div>
   )
 }

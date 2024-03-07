@@ -1,6 +1,8 @@
 import fitz  # PyMuPDF
 import os
 import re
+from dotenv import load_dotenv
+load_dotenv()
 
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
@@ -18,6 +20,8 @@ app.add_middleware(
     allow_headers=['*']
 )
 
+GOOGLE_KEY = os.environ.get("GOOGLE_KEY")
+
 def contains_prices(text: str) -> bool:
     # Define regular expressions for various currencies and terms
     currency_patterns = {
@@ -27,7 +31,7 @@ def contains_prices(text: str) -> bool:
         "rate": r'rate',
         "prices": r'prices'
     }
-
+    
     # Check if any of the currency patterns or terms are present in the text
     prices_found = False
     for pattern in currency_patterns.values():
@@ -92,6 +96,8 @@ async def extract_text(upload_file: UploadFile = File(...)):
         # Cleanup: remove the temporary file
         if os.path.exists(upload_file.filename):
             os.remove(upload_file.filename)
+
+
 
 if __name__ == '_main_':
     uvicorn.run(app, host='127.0.0.1', port=8000)
