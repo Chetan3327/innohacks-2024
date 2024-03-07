@@ -6,6 +6,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 import { PieChart } from "react-minimal-pie-chart";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { PiCoinVertical } from "react-icons/pi";
 import { FaTrash } from "react-icons/fa";
 
 const CatalogInfo = () => {
@@ -123,6 +124,7 @@ const CatalogInfo = () => {
           </div>
           
           {catalog.creator._id === user._id ? (<button onClick={() => deleteCatalog(catalog._id)} className='absolute right-3 px-4 p-2 rounded-md shadow-sm bg-red-600 text-white'><FaTrash /></button>) : (<></>)}
+          <button className='flex absolute top-60 items-center  gap-4 right-3 px-4 p-2 rounded-md shadow-sm bg-yellow-600 text-white'>10<PiCoinVertical /></button>
         </div>)}
       </div>
     </>

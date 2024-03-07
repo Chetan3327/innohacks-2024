@@ -21,7 +21,14 @@ const Catalogs = () => {
 
   useEffect(() => {
     axios.get(`${BACKEND_URL}/api/catalog/all`).then((res) => {
-      setCatalogs(res.data)
+      console.log(res.data)
+      const catalogs = res.data.sort((a, b) => {
+        const sumA = a.has_foul_language + a.has_images + a.has_price;
+        const sumB = b.has_foul_language + b.has_images + b.has_price;
+  
+        return sumB - sumA;
+      });
+      setCatalogs(catalogs)
     })
   }, [])
   return (

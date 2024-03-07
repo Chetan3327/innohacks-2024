@@ -70,7 +70,7 @@ const Upload = () => {
     console.log({ name, pdflink, coverImgUrl, has_foul_language, has_images, has_price })
     axios.post(`${BACKEND_URL}/api/catalog/create`, { name, pdflink, coverImgUrl, has_foul_language, has_images, has_price }, { headers: { 'Authorization': `Bearer ${ token }`}
     }).then((response) => {
-      // navigate('/')
+      navigate('/')
     })
       }
 return (<div >
