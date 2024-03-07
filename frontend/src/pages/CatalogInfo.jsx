@@ -8,6 +8,8 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { PiCoinVertical } from "react-icons/pi";
 import { FaTrash } from "react-icons/fa";
+import { CiChat1 } from "react-icons/ci";
+import Chat from "@/components/Chat";
 
 const CatalogInfo = () => {
   const navigate = useNavigate();
@@ -15,6 +17,7 @@ const CatalogInfo = () => {
   const { token, user } = useContext(UserContext);
   const [catalog, setCatalog] = useState(null);
   const [value, setValue] = useState(0); //score
+  const [showChat, setShowChat] = useState(false)
 
   const deleteCatalog = (id) => {
     axios
@@ -126,6 +129,9 @@ const CatalogInfo = () => {
           {catalog.creator._id === user._id ? (<button onClick={() => deleteCatalog(catalog._id)} className='absolute right-3 px-4 p-2 rounded-md shadow-sm bg-red-600 text-white'><FaTrash /></button>) : (<></>)}
           <button className='flex absolute top-60 items-center  gap-4 right-3 px-4 p-2 rounded-md shadow-sm bg-yellow-600 text-white'>10<PiCoinVertical /></button>
         </div>)}
+
+        {showChat && catalog && (<Chat name={catalog.creator.name} setShowChatWindow={setShowChat} />)}
+        {!showChat && (<div onClick={() => setShowChat(true)} className='z-50 fixed right-5 bottom-5 p-3 rounded-full bg-black text-white shadow-lg cursor-pointer'><CiChat1 size={20} /></div>)}
       </div>
     </>
   );
