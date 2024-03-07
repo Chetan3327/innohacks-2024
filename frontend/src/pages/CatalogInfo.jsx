@@ -52,6 +52,7 @@ const CatalogInfo = () => {
   const { token } = useContext(UserContext);
   const [catalog, setCatalog] = useState(null);
   const [value, setValue] = useState(0); //score
+  const [showChat, setShowChat] = useState(false)
 
   const deleteCatalog = (id) => {
     axios
@@ -155,8 +156,9 @@ const CatalogInfo = () => {
           <div className="w-[300px] h-[300px]">
             <Bar options={option} data={data} />
           </div>
-          <div style={{ width: 200, height: 200 }}>
+          <div style={{ width: 200, height: 200 }} className="flex flex-col justify-center">
             <CircularProgressbar value={value} text={`${value}%`} />
+            <span className="text-white font-bold text-center mt-2">Catalog Score</span>
           </div>
         </div>
       </div>

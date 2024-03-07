@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+python-multipart
+better_profanity
+python_dotenv
+PyMuPDF
